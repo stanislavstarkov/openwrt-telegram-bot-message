@@ -1,0 +1,10 @@
+#!/bin/sh
+BOT_ID=$(uci get telegram.bot.bot_id) 
+CHAT_ID=$(uci get telegram.bot.chat_id)
+if [ $# -gt 0 ]
+then
+    TEXT=$*
+else
+    TEXT=$(cat -)
+fi
+curl -X POST -d chat_id=${CHAT_ID} -d text="$TEXT" https://api.telegram.org/bot${BOT_ID}/sendMessage
